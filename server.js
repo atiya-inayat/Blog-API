@@ -1,7 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import postRoutes from "./routes/postRoutes.js";
 
+const app = express();
+app.use(express.json());
+
+app.use("/posts", postRoutes);
 dotenv.config();
 
 mongoose
@@ -12,9 +17,6 @@ mongoose
   .catch((error) => {
     console.error("❌ MongoDB Connection Failed:", error);
   });
-
-const app = express();
-app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("API is working...");
