@@ -1,6 +1,6 @@
 import Post from "../models/Post.js";
 
-export const createPost = async (req, resizeBy, next) => {
+export const createPost = async (req, res, next) => {
   // new post
   try {
     const { title, description } = req.body; // This means: “Take title and description from the data the user sent to us.”
@@ -61,7 +61,7 @@ export const deletePost = async (req, res, next) => {
     if (!deletedPost) {
       return res.status(404).json({ message: "Post not Found" });
     }
-    // res.json(deletedPost);
+    res.json(deletedPost);
   } catch (err) {
     next(err);
   }

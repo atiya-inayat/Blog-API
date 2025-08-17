@@ -7,12 +7,12 @@ import {
   updatePost,
   deletePost,
 } from "../controllers/postController.js";
-import { validatePost } from "../validators/postValidators.js";
+import { validatePost, validate } from "../validators/postValidators.js";
 
 const router = express.Router();
 
 // Create a new post
-router.post("/", validatePost, createPost);
+router.post("/", validatePost, validate, createPost);
 
 // Get all posts
 router.get("/", getPosts);
@@ -21,7 +21,7 @@ router.get("/", getPosts);
 router.get("/:id", getPostsById);
 
 // Update post
-router.put("/:id", validatePost, updatePost);
+router.put("/:id", validatePost, validate, updatePost);
 
 // Delete post
 router.delete("/:id", deletePost);

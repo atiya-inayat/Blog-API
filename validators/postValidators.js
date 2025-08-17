@@ -14,13 +14,13 @@ export const validatePost = [
     .withMessage("Description is required")
     .isLength({ min: 10 })
     .withMessage("Description must be at least 10 characters long"),
-
-  // fial validators to send errors
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
 ];
+
+// fial validators to send errors
+export const validate = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  next();
+};
