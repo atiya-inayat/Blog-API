@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 // routes
-app.use("/posts", postRoutes);
+app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 app.get("/", (req, res) => {
   res.send("API is working...");
