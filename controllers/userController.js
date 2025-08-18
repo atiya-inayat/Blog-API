@@ -7,7 +7,7 @@ export const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     const user = new User({ name, email, password });
-    await user.save();
+    await user.save(); // save user to DB . After saving, user.password is hashed.
 
     res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
@@ -20,7 +20,7 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }); // look in the DB for a document with that email
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

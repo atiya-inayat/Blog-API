@@ -31,19 +31,4 @@ app.get("/", (req, res) => {
 app.use(notFound);
 app.use(errorHandlerr);
 
-export const testUser = async (req, res, next) => {
-  try {
-    const { name, email, password } = req.body;
-
-    const user = new User({ name, email, password });
-    await user.save();
-    console.log("hashed pass: ", user.password);
-
-    const isMatch = await user.matchPassword(password);
-    console.log("pass match result: ", isMatch);
-    res.json({ message: "User created, check console for logs" });
-  } catch (err) {
-    next(err);
-  }
-};
 app.listen(5000, () => console.log("🚀 Server running on port 5000"));
