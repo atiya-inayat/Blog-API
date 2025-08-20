@@ -5,6 +5,7 @@ import postRoutes from "./routes/postRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { notFound, errorHandlerr } from "./middlewares/errorHandlers.js";
 import User from "./models/User.js";
+import cors from "cors";
 dotenv.config();
 
 // DB + Server
@@ -19,6 +20,7 @@ mongoose
 
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173", credentials: false }));
 
 // routes
 app.use("/api/posts", postRoutes);
