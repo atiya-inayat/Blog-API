@@ -2,9 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
+import { useAuthStore } from "../store/authStore";
 
 const Login = () => {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const { login } = useAuthStore();
+  const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -13,16 +15,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Regestered..");
     setError("");
     setLoading(true);
     try {
-      const { data } = await api.post("/users/register", form);
+      const { data } = await api.post("/users/login", form);
       // data should include: _id, name, email, token
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate("/postlist"); // go to posts after signup
+      login(data);
+      navigate("/"); // go to posts after signup
     } catch (err) {
-      setError(err?.response?.data?.message || "Registration failed");
+      setError(err?.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -34,12 +35,22 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <div className="login-email-div">
             <label htmlFor="">Email</label>
-            <input type="email" onChange={onChange} />
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={onChange}
+            />
           </div>
 
           <div className="login-pass-div">
             <label>Password</label>
-            <input type="password" onChange={onChange} />
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={onChange}
+            />
           </div>
 
           <button className="register-btn">Login</button>

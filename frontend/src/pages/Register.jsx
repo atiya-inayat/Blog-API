@@ -2,18 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
+import { useAuthStore } from "../store/authStore";
 
 const Register = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Regestered..");
     setError("");
     setLoading(true);
     try {
@@ -21,8 +22,7 @@ const Register = () => {
       console.log("Backend response:", data);
 
       // data should include: _id, name, email, token
-      localStorage.setItem("userInfo", JSON.stringify(data));
-
+      login(data);
       navigate("/postlist"); // go to posts after signup
     } catch (err) {
       setError(err?.response?.data?.message || "Registration failed");
