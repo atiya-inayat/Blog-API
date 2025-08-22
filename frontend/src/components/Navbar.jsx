@@ -10,15 +10,16 @@ const Navbar = () => {
       {user ? (
         <>
           <span>Welcome, {user.name}</span>
+          <Link to="/postlist">Posts</Link>
+          <Link to="/postdetails">Post Details</Link>
+
           <button onClick={logout}>Logout</button>
         </>
       ) : (
         <>
           <Link to="/">Home</Link>
-          <Link to="/postlist">Posts</Link>
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
-          <Link to="/postdeatils">Post Details</Link>
         </>
       )}
     </nav>

@@ -36,7 +36,7 @@ function App() {
             }
           />
           <Route
-            path="/postdetails"
+            path="/postdetails/:id"
             element={
               <ProtectedRoute>
                 <PostDetails />
