@@ -22,6 +22,15 @@ const PostList = () => {
     fetchPost();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/posts/${id}`);
+      setPosts(posts.filter((p) => p._id !== id));
+    } catch (err) {
+      setError(err?.response?.data?.message || "Failed to delete post");
+    }
+  };
+
   if (loading) {
     return <p className="loader"></p>;
   }
@@ -44,7 +53,7 @@ const PostList = () => {
                 {post.title} &nbsp; <small> created at </small> &nbsp;{" "}
                 <small>{new Date(post.createdAt).toLocaleString()}</small>
               </Link>
-              ;
+              ;<button onClick={() => handleDelete(post._id)}>Delete</button>
             </li>
           ))}
         </ul>
