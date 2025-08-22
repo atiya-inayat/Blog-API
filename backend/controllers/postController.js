@@ -7,8 +7,7 @@ export const createPost = async (req, res, next) => {
     const newPost = await Post.create({
       title,
       description,
-      user: req.user,
-      _id,
+      user: req.user._id,
     }); // Create a new Post object using the extracted data.
     res.status(201).json(newPost);
   } catch (err) {
