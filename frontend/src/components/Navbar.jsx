@@ -11,7 +11,8 @@ const Navbar = () => {
         <>
           <span>Welcome, {user.name}</span>
           <Link to="/postlist">Posts</Link>
-          <Link to="/postdetails">Post Details</Link>
+          {/* <Link to="/postdetails">Post Details</Link> */}
+          {user && <Link to="/create">Create Post</Link>}
 
           <button onClick={logout}>Logout</button>
         </>

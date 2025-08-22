@@ -7,6 +7,8 @@ const PostList = () => {
   const [loading, setloading] = useState(true);
   const [error, setError] = useState("");
 
+  const user = JSON.parse(localStorage.getItem("user")) || null;
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -53,7 +55,14 @@ const PostList = () => {
                 {post.title} &nbsp; <small> created at </small> &nbsp;{" "}
                 <small>{new Date(post.createdAt).toLocaleString()}</small>
               </Link>
-              ;<button onClick={() => handleDelete(post._id)}>Delete</button>
+
+              {user && post.user === user._id && (
+                <Link to={`/edit/${post._id}`}>
+                  <button>Edit</button>
+                </Link>
+              )}
+
+              <button onClick={() => handleDelete(post._id)}>Delete</button>
             </li>
           ))}
         </ul>
