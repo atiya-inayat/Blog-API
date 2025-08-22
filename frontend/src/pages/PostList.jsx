@@ -39,10 +39,10 @@ const PostList = () => {
         <ul>
           {posts.map((post) => (
             <li key={post._id}>
-              <Link to={`/postdetails?id=${post._id}`}>
+              <Link to={`/postdetails/${post._id}`}>
                 {" "}
-                {post.title} - <small>by {post.author?.name}</small> - at{" "}
-                <small>{post.createdAt}</small>
+                {post.title} &nbsp; <small> created at </small> &nbsp;{" "}
+                <small>{new Date(post.createdAt).toLocaleString()}</small>
               </Link>
               ;
             </li>
